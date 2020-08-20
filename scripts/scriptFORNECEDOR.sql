@@ -1,0 +1,14 @@
+USE cadastro
+GO
+
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE Fornecedor(
+	idFornecedor int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	nome varchar(50) NOT NULL,
+ )
+
