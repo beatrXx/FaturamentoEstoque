@@ -35,6 +35,10 @@ inherited TelaBase6: TTelaBase6
   inherited pageControl: TPageControl
     ActivePage = informacoes
     inherited informacoes: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 543
+      ExplicitHeight = 220
       inherited grupoInformacoes: TGroupBox
         object Label2: TLabel
           Left = 321
@@ -98,6 +102,10 @@ inherited TelaBase6: TTelaBase6
       end
     end
     inherited filtrosPesquisa: TTabSheet
+      ExplicitLeft = 4
+      ExplicitTop = 24
+      ExplicitWidth = 543
+      ExplicitHeight = 220
       inherited tabela: TDBGrid
         Columns = <
           item

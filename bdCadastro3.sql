@@ -1,7 +1,7 @@
 USE [master]
 GO
 
-/****** Object:  Database [cadastro]    Script Date: 20/08/2020 10:38:40 ******/
+/****** Object:  Database [cadastro]    Script Date: 21/08/2020 11:20:24 ******/
 CREATE DATABASE [cadastro]
  CONTAINMENT = NONE
  ON  PRIMARY 

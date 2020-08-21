@@ -45,10 +45,8 @@ inherited TelaBase9: TTelaBase9
       end
     end
     inherited filtrosPesquisa: TTabSheet
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitWidth = 386
+      ExplicitHeight = 285
       inherited grupoFiltros: TGroupBox
         Width = 386
         ExplicitWidth = 386

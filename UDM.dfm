@@ -1,7 +1,7 @@
 ﻿object DM: TDM
   OldCreateOrder = False
   Height = 1159
-  Width = 517
+  Width = 845
   object conexaoBanco: TADOConnection
     Connected = True
     ConnectionString = 
@@ -511,6 +511,7 @@
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstoque'
+    AfterInsert = cdsEstoqueAfterInsert
     AfterPost = cdsEstoqueAfterPost
     AfterCancel = cdsEstoqueAfterCancel
     AfterDelete = cdsEstoqueAfterDelete
@@ -518,16 +519,20 @@
     Top = 728
     object cdsEstoqueidEntrada: TAutoIncField
       FieldName = 'idEntrada'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = True
     end
     object cdsEstoqueidProduto: TIntegerField
       FieldName = 'idProduto'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsEstoquedataEntrada: TDateField
       FieldName = 'dataEntrada'
+      ProviderFlags = [pfInUpdate]
     end
     object cdsEstoquequantidade: TIntegerField
       FieldName = 'quantidade'
+      ProviderFlags = [pfInUpdate]
     end
   end
   object queryFaturamento: TADOQuery
@@ -613,7 +618,16 @@
         Value = Null
       end>
     SQL.Strings = (
-      'select * from PedidosC  where idCliente = :idCliente')
+      
+        'select P.idPedido, P.idCliente, P.dtCadastro, P.dtPrevistaEntreg' +
+        'a from PedidosC P '
+      
+        'where P.idpedido = any(select VP.idPedido from vendasProdutos VP' +
+        ' left OUTER join FaturamentoItem F on VP.idProduto = F.idproduto' +
+        ' and VP.idPedido = F.idPedido'
+      
+        #9#9#9#9#9#9'where F.idproduto is null and F.idpedido is null) and P.id' +
+        'cliente = :idCliente')
     Left = 80
     Top = 920
   end
@@ -630,22 +644,16 @@
     Top = 920
     object cdsPidPedido: TAutoIncField
       FieldName = 'idPedido'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       ReadOnly = True
     end
     object cdsPidCliente: TIntegerField
       FieldName = 'idCliente'
-      ProviderFlags = [pfInUpdate]
     end
     object cdsPdtCadastro: TDateField
       FieldName = 'dtCadastro'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '!99/99/00;1;_'
     end
     object cdsPdtPrevistaEntrega: TDateField
       FieldName = 'dtPrevistaEntrega'
-      ProviderFlags = [pfInUpdate]
-      EditMask = '!99/99/00;1;_'
     end
   end
   object queryVP: TADOQuery
@@ -689,7 +697,7 @@
     CursorType = ctStatic
     Parameters = <
       item
-        Name = 'idPedido'
+        Name = 'idPedidoo'
         Attributes = [paSigned, paNullable]
         DataType = ftInteger
         Precision = 10
@@ -697,7 +705,17 @@
         Value = Null
       end>
     SQL.Strings = (
-      'Select *  from VendasProdutos  where idPedido = :idPedido;')
+      ''
+      'select PV.idPedido, PV.idProduto, PV.Quantidade'#9
+      
+        #9#9#9#9#9#9#9#9#9#9'from vendasProdutos PV left OUTER join FaturamentoItem' +
+        ' FI on'
+      
+        #9#9#9#9#9#9#9#9#9#9'PV.idProduto = FI.idProduto and PV.idPedido = FI.idPed' +
+        'ido'
+      
+        #9#9#9#9#9#9#9#9#9#9'where FI.idProduto is null and FI.idPedido is null and' +
+        ' PV.idPedido = :idPedidoo')
     Left = 80
     Top = 1064
   end
@@ -722,6 +740,63 @@
     end
     object cdsProdQuantidade: TIntegerField
       FieldName = 'Quantidade'
+      ProviderFlags = [pfInUpdate]
+    end
+  end
+  object queryPRODestoque: TADOQuery
+    Connection = conexaoBanco
+    CursorType = ctStatic
+    Parameters = <
+      item
+        Name = 'codigoBarras'
+        Attributes = [paNullable]
+        DataType = ftString
+        NumericScale = 255
+        Precision = 255
+        Size = 200
+        Value = Null
+      end>
+    SQL.Strings = (
+      'select * from produtosC where codigoBarras = :codigoBarras')
+    Left = 568
+    Top = 56
+  end
+  object dspPRODestoque: TDataSetProvider
+    DataSet = queryPRODestoque
+    Left = 680
+    Top = 56
+  end
+  object cdsPRODestoque: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPRODestoque'
+    AfterPost = cdsPRODestoqueAfterPost
+    AfterCancel = cdsPRODestoqueAfterCancel
+    AfterDelete = cdsPRODestoqueAfterDelete
+    Left = 784
+    Top = 56
+    object cdsPRODestoqueidProduto: TAutoIncField
+      FieldName = 'idProduto'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object cdsPRODestoqueProduto: TStringField
+      FieldName = 'Produto'
+      ProviderFlags = [pfInUpdate]
+      Size = 50
+    end
+    object cdsPRODestoqueValor: TFloatField
+      FieldName = 'Valor'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsPRODestoqueqtdeEstoque: TIntegerField
+      FieldName = 'qtdeEstoque'
+      ProviderFlags = [pfInUpdate]
+    end
+    object cdsPRODestoquecodigoBarras: TStringField
+      FieldName = 'codigoBarras'
+      ProviderFlags = [pfInUpdate]
+      Size = 200
     end
   end
 end

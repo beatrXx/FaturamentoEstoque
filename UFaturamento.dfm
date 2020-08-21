@@ -31,10 +31,6 @@ inherited TelaBase7: TTelaBase7
   end
   inherited pageControl: TPageControl
     inherited informacoes: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 543
-      ExplicitHeight = 220
       inherited grupoInformacoes: TGroupBox
         object Label2: TLabel
           Left = 56
@@ -80,10 +76,6 @@ inherited TelaBase7: TTelaBase7
       end
     end
     inherited filtrosPesquisa: TTabSheet
-      ExplicitLeft = 4
-      ExplicitTop = 24
-      ExplicitWidth = 543
-      ExplicitHeight = 220
       inherited tabela: TDBGrid
         Columns = <
           item
@@ -94,6 +86,7 @@ inherited TelaBase7: TTelaBase7
           item
             Expanded = False
             FieldName = 'dataFaturamento'
+            Width = 64
             Visible = True
           end
           item

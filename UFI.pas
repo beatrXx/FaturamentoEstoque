@@ -43,6 +43,10 @@ begin
   showmessage('Pedido2: '+ inttostr(DM.cdsPidPedido.AsInteger));
   form1.chamaTela('TelaBase9');
 
+  DM.cdsP.Close;
+  DM.queryP.Parameters[0].Value := DM.idCliente;
+  DM.cdsP.Open;
+
 end;
 
 procedure TTelaBase8.DBGrid1DblClick(Sender: TObject);
@@ -69,7 +73,10 @@ begin
    DM.cdsFaturamento.Close;
    DM.cdsVendasProdutos.Close;
    //DM.queryP.Close;
+
+   //DM.cdsP.Close;
   DM.queryP.Parameters[0].Value := DM.idCliente;
+  //DM.cdsP.Open;
 
 
   DM.cdsVP.Open;

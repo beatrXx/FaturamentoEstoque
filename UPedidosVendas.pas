@@ -103,7 +103,7 @@ end;
 procedure TTelaBase5.btnSaveClick(Sender: TObject);
 begin
   inherited;
-  ActiveControl := Nil;
+    //ActiveControl := Nil;
     DM.cdsVendasProdutosidPedido.AsInteger := strtoint(DBEdit1.Text);
     DM.cdsVendasProdutosidProduto.AsInteger := DM.cdsProdutosCidProduto.AsInteger;
     dsVendas.DataSet.Post;
@@ -111,10 +111,11 @@ begin
   // Após salvar atualiza
   //btnPesquisarClick(btnPesquisar);
 
-   DM.cdsVendasProdutos.Close;
-   DM.queryVendasProdutos.Close;
-   DM.cdsVendasProdutos.Open;
-   DM.queryVendasProdutos.Open;
+   //DM.cdsVendasProdutos.Close;
+   //DM.queryVendasProdutos.Close;
+   //DM.queryVendasProdutos.Open;
+   //DM.cdsVendasProdutos.Open;
+
 
 
 end;

@@ -107,10 +107,6 @@ type
     queryP: TADOQuery;
     dspP: TDataSetProvider;
     cdsP: TClientDataSet;
-    cdsPidPedido: TAutoIncField;
-    cdsPidCliente: TIntegerField;
-    cdsPdtCadastro: TDateField;
-    cdsPdtPrevistaEntrega: TDateField;
     cdsVendasProdutosidPedido: TIntegerField;
     cdsVendasProdutosidProduto: TIntegerField;
     cdsVendasProdutosQuantidade: TIntegerField;
@@ -123,6 +119,18 @@ type
     queryProd: TADOQuery;
     dspProd: TDataSetProvider;
     cdsProd: TClientDataSet;
+    queryPRODestoque: TADOQuery;
+    dspPRODestoque: TDataSetProvider;
+    cdsPRODestoque: TClientDataSet;
+    cdsPRODestoqueidProduto: TAutoIncField;
+    cdsPRODestoqueProduto: TStringField;
+    cdsPRODestoqueValor: TFloatField;
+    cdsPRODestoqueqtdeEstoque: TIntegerField;
+    cdsPRODestoquecodigoBarras: TStringField;
+    cdsPidPedido: TAutoIncField;
+    cdsPidCliente: TIntegerField;
+    cdsPdtCadastro: TDateField;
+    cdsPdtPrevistaEntrega: TDateField;
     cdsProdidPedido: TIntegerField;
     cdsProdidProduto: TIntegerField;
     cdsProdQuantidade: TIntegerField;
@@ -172,6 +180,10 @@ type
     procedure cdsVPAfterCancel(DataSet: TDataSet);
     procedure cdsVPAfterDelete(DataSet: TDataSet);
     procedure cdsVPAfterPost(DataSet: TDataSet);
+    procedure cdsEstoqueAfterInsert(DataSet: TDataSet);
+    procedure cdsPRODestoqueAfterCancel(DataSet: TDataSet);
+    procedure cdsPRODestoqueAfterDelete(DataSet: TDataSet);
+    procedure cdsPRODestoqueAfterPost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -217,6 +229,12 @@ end;
 procedure TDM.cdsEstoqueAfterDelete(DataSet: TDataSet);
 begin
  cdsEstoque.ApplyUpdates(-1);
+end;
+
+procedure TDM.cdsEstoqueAfterInsert(DataSet: TDataSet);
+begin
+  cdsEstoquedataEntrada.AsDateTime:=Date();
+  cdsEstoquequantidade.AsInteger := 1;
 end;
 
 procedure TDM.cdsEstoqueAfterPost(DataSet: TDataSet);
@@ -297,6 +315,21 @@ end;
 procedure TDM.cdsPedidosCAfterPost(DataSet: TDataSet);
 begin
   cdsPedidosC.ApplyUpdates(-1);
+end;
+
+procedure TDM.cdsPRODestoqueAfterCancel(DataSet: TDataSet);
+begin
+  cdsPRODestoque.CancelUpdates;
+end;
+
+procedure TDM.cdsPRODestoqueAfterDelete(DataSet: TDataSet);
+begin
+  cdsPRODestoque.ApplyUpdates(-1);
+end;
+
+procedure TDM.cdsPRODestoqueAfterPost(DataSet: TDataSet);
+begin
+  cdsPRODestoque.ApplyUpdates(-1);
 end;
 
 procedure TDM.cdsProdutoAfterCancel(DataSet: TDataSet);

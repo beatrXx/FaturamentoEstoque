@@ -27,10 +27,13 @@ inherited TelaBase8: TTelaBase8
     Top = 113
     Width = 557
     Height = 322
+    ActivePage = informacoes
     ExplicitTop = 113
     ExplicitWidth = 557
     ExplicitHeight = 322
     inherited informacoes: TTabSheet
+      ExplicitWidth = 549
+      ExplicitHeight = 294
       inherited grupoInformacoes: TGroupBox
         Width = 549
         Height = 294
@@ -63,13 +66,11 @@ inherited TelaBase8: TTelaBase8
             item
               Expanded = False
               FieldName = 'dtCadastro'
-              Width = 134
               Visible = True
             end
             item
               Expanded = False
               FieldName = 'dtPrevistaEntrega'
-              Width = 140
               Visible = True
             end>
         end

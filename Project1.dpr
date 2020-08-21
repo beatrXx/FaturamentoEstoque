@@ -15,7 +15,10 @@ uses
   UProdutosC in 'UProdutosC.pas' {TelaBase4},
   UPedidosVendas in 'UPedidosVendas.pas' {TelaBase5},
   UEstoque in 'UEstoque.pas' {TelaBase6},
-  UFaturamento in 'UFaturamento.pas' {TelaBase7};
+  UFaturamento in 'UFaturamento.pas' {TelaBase7},
+  UFI in 'UFI.pas' {TelaBase8},
+  UItemPedido in 'UItemPedido.pas' {TelaBase9},
+  UEstoque2 in 'UEstoque2.pas' {TelaBase10};
 
 {$R *.res}
 

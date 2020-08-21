@@ -50,8 +50,36 @@ begin
   showmessage('Produto2: '+ inttostr(DM.cdsProdidProduto.AsInteger));
 
   //verif.
+  DM.conexaoBanco.Connected := true;
+  DM.cdsProdutosC.Active := true;
+  DM.cdsProdutosC.First;
 
-  DM.cdsFI.Post;
+   while  not(DM.cdsProdutosC.Eof)    do
+      begin
+
+        if DM.cdsProdidProduto.AsInteger = DM.cdsProdutosC.FieldByName('idProduto').AsInteger then
+        begin
+            if DM.cdsProdutosC.FieldByName('qtdeEstoque').AsInteger >= DM.cdsProdQuantidade.AsInteger  then
+             begin
+                showmessage('entrou no IF');
+
+                DM.cdsProdutosC.Edit;
+                DM.cdsProdutosCqtdeEstoque.AsInteger := (DM.cdsProdutosCqtdeEstoque.AsInteger - DM.cdsProdQuantidade.AsInteger);
+                Dm.cdsProdutosC.Post;
+                DM.cdsFI.Post;
+             end else
+             begin
+               showmessage('Estoque Insuficiente');
+             end;
+        end;
+
+        DM.cdsProdutosC.Next;
+
+      end;
+
+  DM.cdsProd.Close;
+  DM.queryProd.Parameters[0].Value := DM.idPedidoo;
+  DM.cdsProd.open;
 
 
 end;
